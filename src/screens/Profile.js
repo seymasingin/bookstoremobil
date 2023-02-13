@@ -26,8 +26,11 @@ function Profile(props) {
         <View>
             {data.map((item)=> 
             <View style={styles.view}>
-            <Image source={item.uri}></Image>
+            
             <Text style={styles.text}>{item.name}</Text>
+            <Text style={styles.text}>{item.age}</Text>
+            <Text style={styles.text}>{item.password}</Text>
+            
             </View>
             )}
         </View>

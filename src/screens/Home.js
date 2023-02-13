@@ -27,12 +27,25 @@ const Home = () => {
     }   
       }
 
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [word, setWord] = useState('show');
+
+  const handlePasswordVisibility = () => {
+    if (word === 'show') {
+      setWord('show');
+      setPasswordVisibility(passwordVisibility);
+    } else if (word !== 'show') {
+      setWord('hide');
+      setPasswordVisibility(!passwordVisibility);
+    }
+  };
+
 const ProfilData={
 name:'Seyma', 
 age: '30', 
-uri: require("../assets/images/picture.png"),
+//uri: require('./assets/images/picture.png'),
 password: 123456,
-showPassword: true,
+//showPassword: passwordVisibility, word, handlePasswordVisibility,
 }
 
   return (

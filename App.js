@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/screens/Home';
 import Favourites from './src/screens/Favourites';
 import Profile from './src/screens/Profile';
+
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (

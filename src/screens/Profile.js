@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React from 'react';
+import { ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 function Profile(props) {
+
     const navigation = useNavigation();
-    const data = props.route.params.ProfilData;
-
+    const data = props.route.params?.ProfilData;// gelen obje
+    const data2 = props.route.params?.ProfilData2; // gelen array
+//sorun şuydu
+//array i mapleyebilirisn ama objeyi mapleyemedi js şöyle ypamamız gerekirdi
     return(
-        <ScrollView>
-
+        <ScrollView >
         <View style={styles.nav}>
         <TouchableOpacity 
         onPress={()=>navigation.navigate('Home')} 
@@ -24,15 +25,26 @@ function Profile(props) {
         </View>
 
         <View>
-            {data.map((item)=> 
-            <View style={styles.view}>
-            
-            <Text style={styles.text}>{item.name}</Text>
-            <Text style={styles.text}>{item.age}</Text>
-            <Text style={styles.text}>{item.password}</Text>
-            
+           {data2.map((item , i)=> 
+           <View style={styles.view}>
+            <Image source={item.image} key= {i+3} style={styles.foto}/>
+            <View style={styles.profil}> 
+            <Text style={styles.text} key= {i+1}>Name:{item.name} </Text>
+            <Text style={styles.text} key= {i+2}>Age:{item.age}</Text>
+            <Text style={styles.text} key= {i+4}>Password:{item.password}</Text>
             </View>
-            )}
+        
+            </View>)}
+
+            
+            {<View style={styles.view}>
+            <Image source={data.image} style={styles.foto}/>
+            <View style={styles.profil}> 
+            <Text style={styles.text}>Name:{data.name}</Text>
+            <Text style={styles.text}>Age:{data.age}</Text>
+            <Text style={styles.text}>Password:{data.password}</Text>
+            </View>
+            </View>}
         </View>
         </ScrollView>
         )
@@ -40,10 +52,12 @@ function Profile(props) {
 export default Profile;
 
 const styles ={
-    view:{padding:3},
+    
+    view:{padding:3, flexDirection:'row', margin: 10},
     text:{fontSize: 20, fontWeight: 'bold',},
     favourites:{backgroundColor:'#006400', borderRadius:20, height:40, width:150, justifyContent:'center',
           alignItems:'center', marginTop:10,},
     nav:{flexDirection:'row'},
-
+    foto:{width:100, height:100},
+    profil:{margin:10}
 }

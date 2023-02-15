@@ -3,8 +3,7 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import BookView from '../components/BookView';
 import { useNavigation } from "@react-navigation/native";
-
-
+import Foto from '../assets/images/picture.png' // import edilerek kullanımı
 
 
 const Home = () => {
@@ -15,7 +14,7 @@ const Home = () => {
         .then(res => setBook(res.data.books))
     }, []);
 
-  const [favourites, setFavourites] = useState([]);// sorun burdaki koyduğun tag mış ' favorites' diye
+  const [favourites, setFavourites] = useState([]);
 
   const addFavourites = (id) => {
     const allReady = favourites?.find(item => item.isbn13 === id)
@@ -27,26 +26,20 @@ const Home = () => {
     }   
       }
 
-  const [passwordVisibility, setPasswordVisibility] = useState(true);
-  const [word, setWord] = useState('show');
-
-  const handlePasswordVisibility = () => {
-    if (word === 'show') {
-      setWord('show');
-      setPasswordVisibility(passwordVisibility);
-    } else if (word !== 'show') {
-      setWord('hide');
-      setPasswordVisibility(!passwordVisibility);
-    }
-  };
-
 const ProfilData={
 name:'Seyma', 
 age: '30', 
-//uri: require('./assets/images/picture.png'),
+image: require('../assets/images/picture.png'), //import etmeden kullanmak için
 password: 123456,
-//showPassword: passwordVisibility, word, handlePasswordVisibility,
+
 }
+const ProfilData2=[{
+  name:'Elif', 
+  age: '30', 
+  image: Foto, // import ederek kullanmak için
+  password: 654321,
+  }
+]
 
   return (
     <ScrollView style={{flex:1}}>
@@ -58,17 +51,16 @@ password: 123456,
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.profil}
-      onPress={()=>navigation.navigate('Profile', {ProfilData})}>
+      onPress={()=>navigation.navigate('Profile', {ProfilData,ProfilData2})}>
       <Text style={{color:'white'}}>Profile</Text>
       </TouchableOpacity>
       </View>
 
       <ScrollView style={{flex:1,marginHorizontal:20}}>
-      { book?.map((item) =>
+      {book?.map((item) =>
        <BookView book={item} key={Math.random(10)}
        addFavourites={addFavourites}
-        text='Add Favourites'/>)
-      }
+        text='Add Favourites'/>)}
       </ScrollView>   
     </ScrollView>
   )
@@ -78,6 +70,5 @@ export default Home;
 
 const styles ={
   nav:{flexDirection:'row'},
-  profil:{backgroundColor:'#006400', borderRadius:20, height:40, width:150, justifyContent:'center',
-          alignItems:'center', marginTop:10,}
+  profil:{backgroundColor:'#006400', borderRadius:20, height:40, width:150,        justifyContent:'center', alignItems:'center', marginTop:10,}
 }

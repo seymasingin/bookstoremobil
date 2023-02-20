@@ -20,9 +20,10 @@ const Home = () => {
     const allReady = favourites?.find(item => item.isbn13 === id)
     if(allReady){
       console.log('giriyor')
-      }else{
+      }
+    else{
      const newFavourite = book?.find(item => item?.isbn13 === id)
-  setFavourites([...favourites, newFavourite])
+      setFavourites([...favourites, newFavourite])
     }   
       }
 
@@ -31,32 +32,30 @@ name:'Seyma',
 age: '30', 
 image: require('../assets/images/picture.png'), //import etmeden kullanmak için
 password: 123456,
-
 }
+
 const ProfilData2=[{
   name:'Elif', 
   age: '30', 
   image: Foto, // import ederek kullanmak için
   password: 654321,
-  }
-]
+  }]
 
   return (
     <ScrollView style={{flex:1}}>
-      <View style={styles.nav}>
+      <View style= {{flexDirection:"row",}}>
       <TouchableOpacity 
       onPress={()=>navigation.navigate('Favourites',{ favourites})} 
       style={{backgroundColor:'#deb887',borderRadius:20,height:40,width:150,justifyContent:'center',alignItems:'center', marginTop:10}}>
       <Text style={{color:'white'}}>Favourites</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.profil}
-      onPress={()=>navigation.navigate('Profile', {ProfilData,ProfilData2})}>
+      <TouchableOpacity 
+      onPress={()=>navigation.navigate('Profile',{ ProfilData, ProfilData2})} 
+      style={{backgroundColor:'#8fbc8f',borderRadius:20,height:40,width:150,justifyContent:'center',alignItems:'center', marginTop:10,marginLeft:90}}>
       <Text style={{color:'white'}}>Profile</Text>
       </TouchableOpacity>
       </View>
-
-      <ScrollView style={{flex:1,marginHorizontal:20}}>
+    <ScrollView style={{flex:1,marginHorizontal:20}}>
       {book?.map((item) =>
        <BookView book={item} key={Math.random(10)}
        addFavourites={addFavourites}
@@ -70,5 +69,6 @@ export default Home;
 
 const styles ={
   nav:{flexDirection:'row'},
-  profil:{backgroundColor:'#006400', borderRadius:20, height:40, width:150,        justifyContent:'center', alignItems:'center', marginTop:10,}
+  profil:{backgroundColor:'#006400', borderRadius:20, height:40, width:150,
+          justifyContent:'center', alignItems:'center', marginTop:10,}
 }

@@ -7,8 +7,6 @@ function Profile(props) {
     const navigation = useNavigation();
     const data = props.route.params?.ProfilData;// gelen obje
     const data2 = props.route.params?.ProfilData2; // gelen array
-//sorun şuydu
-//array i mapleyebilirisn ama objeyi mapleyemedi js şöyle ypamamız gerekirdi
     return(
         <ScrollView >
         <View style={styles.nav}>
@@ -27,11 +25,11 @@ function Profile(props) {
         <View>
            {data2.map((item , i)=> 
            <View style={styles.view}>
-            <Image source={item.image} key= {i+3} style={styles.foto}/>
+            <Image source={item.image} key= {Math.random(10)} style={styles.foto}/>
             <View style={styles.profil}> 
-            <Text style={styles.text} key= {i+1}>Name:{item.name} </Text>
-            <Text style={styles.text} key= {i+2}>Age:{item.age}</Text>
-            <Text style={styles.text} key= {i+4}>Password:{item.password}</Text>
+            <Text style={styles.text} key= {Math.random(10)}>Name:{item.name} </Text>
+            <Text style={styles.text} key= {Math.random(10)}>Age:{item.age}</Text>
+            <Text style={styles.text} key= {Math.random(10)}>Password:{item.password}</Text>
             </View>
         
             </View>)}

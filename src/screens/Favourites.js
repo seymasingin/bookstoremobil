@@ -1,25 +1,30 @@
 import React, {useState} from 'react';
-import { ScrollView, View, TouchableOpacity, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import BookView from '../components/BookView';
-import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from 'react-redux';
+import { remove} from '../features/fav/favSlice';
 
-const Favourites = (props) => {
 
-  const navigation = useNavigation();
-  const [favourites, setFavourites] = useState(props.route.params?.favourites);
-console.log(favourites,'favori sayfamdaki data')
-  const deleteFavourite = (id) => {
-      const remove = favourites?.filter(item => item.isbn13 !== id);
-      setFavourites(remove)
-    };
-    
+const Favourites = () => {
+
+  const {favourites} = useSelector((store) => store.favs);
+
+  const dispatch = useDispatch();
+
+  const removeFavourites = (id) => {
+    const removed = favourites?.find(item => item.isbn13 === id);
+    dispatch(remove(removed))
+  };
+
+  console.log(favourites)
+
   return (
       <ScrollView style={{flex:1,marginHorizontal:20}}>
-        {favourites?.map((item) => 
+        {favourites.map((item) => 
         <BookView book={item} 
         key={Math.random(10)} 
         text='Remove Favourites'
-        addFavourites={deleteFavourite}/>)}
+        addFavourites={removeFavourites}/>)}
     </ScrollView>
   )
 }

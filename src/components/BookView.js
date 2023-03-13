@@ -1,14 +1,17 @@
 import React from 'react';
 import {TouchableOpacity,Text,Image,View} from 'react-native';
-  
-function BookView({book, addFavourites, text}) {
+import { addFavourites } from '../features/fav/favSlice';
 
+  
+function BookView({book, text, addFavourites}) {
+
+  
     return(
         <View style={styles.view}>
             <Image source={{uri:book.image}} style={styles.img} />
             <Text >{ book.title}</Text>
             <Text >{book.subtitle}</Text>
-            <TouchableOpacity  onPress={() => addFavourites(book.isbn13)} style={styles.button}>
+            <TouchableOpacity  onPress={()=>addFavourites(book.isbn13)} style={styles.button}>
             <Text  style={styles.favtext}>{text}</Text>
             </TouchableOpacity>
         </View>

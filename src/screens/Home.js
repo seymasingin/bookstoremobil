@@ -36,7 +36,7 @@ password: 123456,
 
 const ProfilData2=[{
   name:'Elif', 
-  age: '30', 
+  age: '31', 
   image: Foto, // import ederek kullanmak için
   password: 654321,
   }]

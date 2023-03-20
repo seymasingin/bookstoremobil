@@ -5,10 +5,25 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './src/screens/Home';
 import Favourites from './src/screens/Favourites';
 import Profile from './src/screens/Profile';
+import Basket from './src/screens/Basket';
+import BookDetail from './src/screens/BookDetail';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const HomeStack = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="HomeScreen" component= {Home} options={{ headerShown: false }}/>
+      <Stack.Screen name= "Profile" component= {Profile} options={{ headerShown: false }} />
+      <Stack.Screen name= "BookDetail" component= {BookDetail} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  )
+};
+
 
 function App() {
   return (
@@ -18,19 +33,21 @@ function App() {
         ({ route }) => ({
         tabBarActiveBackgroundColor:'#dcdcdc',
         tabBarInactiveBackgroundColor: '#778899',
+        tabBarShowLabel: false,
         tabBarIcon: ({ color, size }) => {
           if (route.name === 'Home') {
             iconName= "home-outline";
           }
           if (route.name === 'Favourites') {
             iconName= "heart-outline";}
-          if (route.name === 'Profile') {
-            iconName= "person-outline";}
+          if (route.name === 'Basket') {
+            iconName= "cart-outline";}
             return <Icon name={iconName} size={size} color={"black"}  />;},
           })}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Favourites" component={Favourites} />
-      <Tab.Screen name="Profile" component={Profile}  />
+      <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Favourites" component={Favourites} options={{ headerShown: false }} />
+      <Tab.Screen name="Basket" component={Basket} options={{ headerShown: false, tabBarBadge:1 }} />
+      
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, TextInput, ScrollView, View, Dimensions, SafeAreaView, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import BookView from '../components/BookView';
+import Header from '../components/Header';
 import { useDispatch , useSelector } from 'react-redux';
-import { add } from "../features/fav/favSlice";
+import { add } from "../features/favSlice";
+import Icon from 'react-native-vector-icons/Ionicons';
+
 //import { useNavigation } from "@react-navigation/native";
 //import Foto from '../assets/images/picture.png' // import edilerek kullanımı
 
+const Home = ({navigation}) => {
 
-
-const Home = () => {
   const [book, setBook] = useState();
   const dispatch = useDispatch();
-
   const {favourites} = useSelector((store) => store.favs);
+  
   
   useEffect(() => {
     axios.get('https://api.itbook.store/1.0/new')
@@ -23,7 +25,7 @@ const Home = () => {
 const addFavourites = (id) => {
   const allReady = favourites?.find(item => item.isbn13 === id)
   if(allReady){
-    Alert.alert("var")
+    Alert.alert("already exist")
     }
   else{
     const newFavourite = book?.find(item => item.isbn13 === id);
@@ -31,28 +33,50 @@ const addFavourites = (id) => {
   }   
     }   
 
-/*const ProfilData={
-name:'Seyma', 
-age: '30', 
-image: require('../assets/images/picture.png'), //import etmeden kullanmak için
-password: 123456,
-}
+  const [text, onChangeText] = useState('');
 
-const ProfilData2=[{
-  name:'Elif', 
-  age: '31', 
-  image: Foto, // import ederek kullanmak için
-  password: 654321,
-  }]*/
+  const handleChangetext = () => {};
+
 
   return (
-    <ScrollView style={{flex:1,marginHorizontal:20}}>
-      {book?.map((item) =>
-       <BookView book={item} key={Math.random(10)}
-       addFavourites={addFavourites}
-        text='Add Favourites'/>)}
-    </ScrollView>   
+    <SafeAreaView>
+        <View style={styles.home}>
+          <Header title= "Home" 
+          name={<TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                    <Icon name="person" size={25} />
+                </TouchableOpacity>} />
+        </View>
+
+        <View style={styles.search}>
+          <TextInput
+            style={styles.input}
+            placeholder= "search"
+            onChangeText={onChangeText}
+            value={text}
+          />
+          <Icon style= {styles.searchicon} name= "search-outline" size={30}/> 
+        </View>
+        <ScrollView>
+          {book?.map((item) =>
+          <BookView book={item} 
+                    key={Math.random(10)}
+                    addFavourites={addFavourites}
+                    text='Add Favourites'
+                    handlePress= {() => {navigation.navigate('BookDetail', {book})}}/>)}
+        </ScrollView>
+    </SafeAreaView>
+    
   )
 }
 export default Home;
+
+const styles ={
+  search:{flexDirection: "row", justifyContent: "center", alignItems: 'center',margin:20,borderWidth: 1,  
+  borderRadius: 10,},
+  input:{ flex:1,
+          fontWeight:'bold',
+          height: 50,        
+  },
+  searchicon:{paddingRight:7}
+ }
 

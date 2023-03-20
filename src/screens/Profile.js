@@ -1,14 +1,62 @@
 import React from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
+import { ScrollView, View, Text, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import Input from '../components/Input';
+import Button from '../components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMember } from '../features/memberSlice';
+import { Formik } from "formik";
+import Header from '../components/Header';
 
 function Profile(props) {
 
     const navigation = useNavigation();
-    const data = props.route.params?.ProfilData;// gelen obje
+    const dispatch = useDispatch();
+    const {members} = useSelector(s => s.members);
+
+    const handleLogin = (values) => {
+        const allReady = members?.find(item => item.password === values.password)
+        if(allReady){
+          Alert.alert("var")
+          }
+        else{
+          dispatch(addMember(values))}
+        }   
+        return(
+            <ScrollView>
+              <Header title= 'Login'/>
+            <Formik style={styles.container} initialValues={{username:"", password:""}} onSubmit= {handleLogin}>
+            {({handleSubmit, handleChange, values}) => 
+            (<View >
+            <Input placeholder="enter username" 
+                    value={values.username} 
+                    onType={handleChange("username")}
+                    iconName="person-outline"/>
+            <Input placeholder= "enter password" 
+                    value={values.password} 
+                    onType={handleChange("password")}
+                    iconName="lock-closed-outline"/>
+            <Button  text= "LOGIN" onPress={handleSubmit}  />
+            </View>)}
+            </Formik>
+            </ScrollView>
+            )
+    
+          } 
+       
+export default Profile;
+
+const styles={
+  container:{},
+}
+
+
+
+/*
+const data = props.route.params?.ProfilData;// gelen obje
     const data2 = props.route.params?.ProfilData2; // gelen array
-    return(
-        <ScrollView >
+
+<ScrollView >
         <View style={styles.nav}>
         <TouchableOpacity 
         onPress={()=>navigation.navigate('Home')} 
@@ -44,18 +92,4 @@ function Profile(props) {
             </View>
             </View>}
         </View>
-        </ScrollView>
-        )
-}
-export default Profile;
-
-const styles ={
-    
-    view:{padding:3, flexDirection:'row', margin: 10},
-    text:{fontSize: 20, fontWeight: 'bold',},
-    favourites:{backgroundColor:'#006400', borderRadius:20, height:40, width:150, justifyContent:'center',
-          alignItems:'center', marginTop:10,},
-    nav:{flexDirection:'row'},
-    foto:{width:100, height:100},
-    profil:{margin:10}
-}
+        </ScrollView>*/

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ScrollView, View, Text, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import Input from '../components/Input';
@@ -7,49 +7,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMember } from '../features/memberSlice';
 import { Formik } from "formik";
 import Header from '../components/Header';
+import axios from 'axios';
 
-function Profile(props) {
+function Profile() {
 
-    const navigation = useNavigation();
-    const dispatch = useDispatch();
-    const {members} = useSelector(s => s.members);
+    const [data, setData] = useState(null);
 
-    const handleLogin = (values) => {
-        const allReady = members?.find(item => item.password === values.password)
-        if(allReady){
-          Alert.alert("var")
-          }
-        else{
-          dispatch(addMember(values))}
-        }   
-        return(
-            <ScrollView>
-              <Header title= 'Login'/>
-            <Formik style={styles.container} initialValues={{username:"", password:""}} onSubmit= {handleLogin}>
-            {({handleSubmit, handleChange, values}) => 
-            (<View >
-            <Input placeholder="enter username" 
-                    value={values.username} 
-                    onType={handleChange("username")}
-                    iconName="person-outline"/>
-            <Input placeholder= "enter password" 
-                    value={values.password} 
-                    onType={handleChange("password")}
-                    iconName="lock-closed-outline"/>
-            <Button  text= "LOGIN" onPress={handleSubmit}  />
-            </View>)}
-            </Formik>
-            </ScrollView>
-            )
+    const  handleLogin = async() => {
+      try {
+        response= await axios.post('https://fakestoreapi.com/auth/login', values)
+        setData(response);
+      } catch (err) {
+        setError(err)
+      }
+    }
     
-          } 
+    if(data){
+      console.log(data)
+    }
+
+  return(
+      <ScrollView>
+        <Header title= 'Login'/>
+        <Formik  initialValues={{username:"", password:""}} onSubmit= {handleLogin}>
+        {({handleSubmit, handleChange, values}) => 
+        (<View >
+          <Input placeholder="enter username" 
+                  value={values.username} 
+                  onType={handleChange("username")}
+                  iconName="person-outline"/>
+          <Input placeholder= "enter password" 
+                  value={values.password} 
+                  onType={handleChange("password")}
+                  iconName="lock-closed-outline"/>
+          <Button text= "LOGIN" onPress={handleSubmit} />
+        </View>)}
+        </Formik>
+      </ScrollView>
+      )
+
+    } 
        
 export default Profile;
-
-const styles={
-  container:{},
-}
-
 
 
 /*

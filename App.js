@@ -7,12 +7,15 @@ import Favourites from './src/screens/Favourites';
 import Profile from './src/screens/Profile';
 import Basket from './src/screens/Basket';
 import BookDetail from './src/screens/BookDetail';
+import Add from './src/screens/Add';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 const HomeStack = () => {
   return(
@@ -20,12 +23,15 @@ const HomeStack = () => {
       <Stack.Screen name="HomeScreen" component= {Home} options={{ headerShown: false }}/>
       <Stack.Screen name= "Profile" component= {Profile} options={{ headerShown: false }} />
       <Stack.Screen name= "BookDetail" component= {BookDetail} options={{ headerShown: false }}/>
+      <Stack.Screen name= "Add" component= {Add} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 };
 
-
 function App() {
+
+  const {quantities} = useSelector(s => s.quans);
+
   return (
     <NavigationContainer>
       <Tab.Navigator 
@@ -46,7 +52,7 @@ function App() {
           })}>
       <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
       <Tab.Screen name="Favourites" component={Favourites} options={{ headerShown: false }} />
-      <Tab.Screen name="Basket" component={Basket} options={{ headerShown: false, tabBarBadge:1 }} />
+      <Tab.Screen name="Basket" component={Basket} options={{ headerShown: false, tabBarBadge: quantities }} />
       
       </Tab.Navigator>
     </NavigationContainer>

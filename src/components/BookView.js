@@ -2,14 +2,10 @@ import React from 'react';
 import {TouchableOpacity,Text,Image,View} from 'react-native';
 
 
-  
-function BookView({book, text, addFavourites, handlePress }) {
+function BookView({book, text, addFavourites, onPress }) {
 
-  
     return(
-        <TouchableOpacity 
-            style={styles.view} 
-            onPress={() => handlePress(book.isbn13)}>
+        <TouchableOpacity style={styles.view} onPress={onPress}>
             <Image source={{uri:book.image}} style={styles.img} />
             <Text>{book.title}</Text>
             <Text>{book.subtitle}</Text>

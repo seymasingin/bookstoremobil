@@ -23,8 +23,7 @@ const styles ={
         margin:10,
         backgroundColor: "lightgrey", 
         borderRadius:8,
-        height: 50,
-                  
+        height: 50,        
         },
    
     icon:{

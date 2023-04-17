@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
 import BookView from '../components/BookView';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,7 +18,7 @@ const Favourites = () => {
   };
 
   return (
-      <ScrollView style={{flex:1,}}>
+      <ScrollView style={{flex:1,}} pagingEnabled={true}>
         <Header title= "Favourites"/>
         {favourites.map((item) => 
         <BookView book={item} 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, Image, Dimensions, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { IconButton } from "@react-native-material/core";
 
 function Header(props){
     return(
@@ -9,9 +9,7 @@ function Header(props){
             <View style={styles.items}>
                 <Image style={styles.logo} source={require("../assets/images/storelogo.png")}/>
                 <Text style={styles.title} > {props.title} </Text> 
-                <TouchableOpacity>
-                    <Icon style={styles.icon} > {props.name}</Icon> 
-                </TouchableOpacity>
+                
             </View>
         </View>
     )
@@ -24,7 +22,7 @@ const styles ={
         height:60,
         width:Dimensions.get("window").width, 
         backgroundColor: "#778899",
-        
+        position: 'relative'
         },
     items:{flexDirection:'row',
             alignItems: 'center',
@@ -40,5 +38,4 @@ const styles ={
         color:'black',
         marginLeft: 8
         },
-    icon:{marginLeft: 240}
 }

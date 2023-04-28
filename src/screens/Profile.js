@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import { ScrollView, View, Text, Image } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { addMember } from '../features/memberSlice';
 import { Formik } from "formik";
 import Header from '../components/Header';
 import axios from 'axios';
@@ -21,11 +18,7 @@ function Profile() {
         setError(err)
       }
     }
-    
-    if(data){
-      console.log(data)
-    }
-
+   
   return(
       <ScrollView>
         <Header title= 'Login'/>
@@ -49,7 +42,6 @@ function Profile() {
     } 
        
 export default Profile;
-
 
 /*
 const data = props.route.params?.ProfilData;// gelen obje

@@ -10,17 +10,26 @@ import { IconButton } from "@react-native-material/core";
 
 const Home = ({navigation}) => {
 
-  const [book, setBook] = useState();
-  const [filterText, setFilterText] = useState('');
-  const [data, setData] = useState(book);
+  const [search, setSearch] = useState('');
+  const [filteredBook, setFilteredBook] = useState([]);
+  const [book, setBook] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://api.itbook.store/1.0/new')
+      .then((res) => {
+        setFilteredBook(res.data.books);
+        setBook(res.data.books);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  
 
   const dispatch = useDispatch();
   const {favourites} = useSelector((store) => store.favs);
   
-  useEffect(() => {
-   axios.get('https://api.itbook.store/1.0/new')
-        .then(res => setBook(res.data.books))
-    }, []);
+  
 
   const addFavourites = (id) => {
     const allReady = favourites?.find(item => item.isbn13 === id)
@@ -33,21 +42,27 @@ const Home = ({navigation}) => {
     }   
       } 
 
-  const handleFilter = (filterText) => {
-    const newFilter = book?.filter((item) => {
-      return item.title.toLowerCase().includes(filterText.toLowerCase());
-      });
-      if (filterText === "") {
-        setData(book);
-      } else {
-        setData(newFilter);
-      }
-  }
+      const searchFilterFunction = (text) => {
+        if (text) {
+          const newData = book.filter(function (item) {
+            const itemData = item.title
+              ? item.title.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+          setFilteredBook(newData);
+          setSearch(text);
+        } else {
+          setFilteredBook(book);
+          setSearch(text);
+        }
+      };
 
   const handleProductSelect= (isbn13) => {
     navigation.navigate('BookDetail', {isbn13} )
   }
-  console.log(book)
+ 
   return (
     <SafeAreaView>
       <View style={styles.head}>
@@ -64,21 +79,18 @@ const Home = ({navigation}) => {
           <TextInput
             style={styles.search}
             placeholder= "search"
-            value={filterText}
-            onChange= {filterText=> setFilterText(filterText)}
+            value={search}
+            onChangeText={(text) => searchFilterFunction(text)}
           />
-          <TouchableOpacity onSubmit={handleFilter}>
-            <Icon style= {styles.searchicon} name= "search-outline" size={30} /> 
-          </TouchableOpacity>
         </View>
         <ScrollView >
-          {(book?.map((item) =>
-          <BookView book={item} 
+          {filteredBook.map((item) =>
+          <BookView filteredBook={item} 
                     key={Math.random(10)}
                     addFavourites={addFavourites}
                     text='Add Favourites'
                     onPress= {()=>handleProductSelect(item.isbn13) }
-                      />))
+                      />)
                     }
         </ScrollView>
     </SafeAreaView>
@@ -99,6 +111,10 @@ const styles ={
           fontWeight:'bold',
           height: 50,        
             },
-  searchicon:{paddingRight:7},
+  
  }
+
+
+
+ 
 

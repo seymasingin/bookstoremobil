@@ -6,7 +6,6 @@ import Button from '../components/Button';
 import axios from 'axios';
 
 const Add = () => {
-   
 
     const handlePost = (values) => {
         axios.post('https://api.itbook.store/1.0/books/', values)

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Text,SafeAreaView, View, Image } from "react-native-elements";
+import { Text,SafeAreaView, View, Image } from "react-native";
 import Header from "../components/Header";
 import axios from "axios";
 
@@ -10,27 +10,29 @@ const BookDetail = (props) => {
  
   const id = props.route.params.isbn13;
 
-  console.log(id); //çalışıyor
-
   const [data, setData] = useState();
 
   useEffect(() => {
     axios.get(`${key}/${id}`)
-         .then(res => setData(res))
-     }, []);
-
-  console.log(data);  //çalışmıyor
-
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }, []);
   return(
     <SafeAreaView>
-        <View style={styles.detail}>
           <Header title= "Detail" />
           <View>
-          <Image style= {styles.image} source= {{uri:data.image}}> </Image>
-            <Text style= {styles.title}>{data.title}</Text>
-            <Text style= {styles.subtitle}>{data.subtitle}</Text>
-            <Text style= {styles.price}>{data.price}</Text>
-          </View>
+        {data && (
+            <>
+              <Image style={styles.image} source={{ uri: data.image }} />
+              <Text style={styles.title}>{data.title}</Text>
+              <Text style={styles.subtitle}>{data.subtitle}</Text>
+              <Text style={styles.price}>{data.price}</Text>
+            </>
+          )}
         </View>
     </SafeAreaView>
     )
@@ -38,5 +40,6 @@ const BookDetail = (props) => {
 
 export default BookDetail;
 
-const styles ={image:{backgroundColor: 'red'}};
+const styles ={
+  image:{backgroundColor: 'white', width:300, height:300}};
 

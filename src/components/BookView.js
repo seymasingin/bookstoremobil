@@ -2,14 +2,14 @@ import React from 'react';
 import {TouchableOpacity,Text,Image,View} from 'react-native';
 
 
-function BookView({book, text, addFavourites, onPress }) {
+function BookView({filteredBook, text, addFavourites, onPress }) {
 
     return(
         <TouchableOpacity style={styles.view} onPress={onPress}>
-            <Image source={{uri:book.image}} style={styles.img} />
-            <Text>{book.title}</Text>
-            <Text>{book.subtitle}</Text>
-            <TouchableOpacity  onPress={()=>addFavourites(book.isbn13)} style={styles.button}>
+            <Image source={{uri:filteredBook.image}} style={styles.img} />
+            <Text>{filteredBook.title}</Text>
+            <Text>{filteredBook.subtitle}</Text>
+            <TouchableOpacity  onPress={()=>addFavourites(filteredBook.isbn13)} style={styles.button}>
             <Text  style={styles.favtext}>{text}</Text>
             </TouchableOpacity>
         </TouchableOpacity>

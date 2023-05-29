@@ -60,7 +60,7 @@ const Home = ({navigation}) => {
       };
 
   const handleProductSelect= (isbn13) => {
-    navigation.navigate('BookDetail', {isbn13} )
+    navigation.navigate('BookDetail', {x:isbn13} )
   }
  
   return (
@@ -70,9 +70,9 @@ const Home = ({navigation}) => {
           <View style={styles.icons}>
           <IconButton icon={props => <Icon  name="add" {...props} size={30}/>}
                       onPress={()=> navigation.navigate('Add')}/>
-          <IconButton icon={props => <Icon  name="person" {...props}
+          <IconButton icon={props => <Icon  name="person" {...props}/>}
                       onPress={()=> navigation.navigate('Profile')}
-          />}/>
+          />
           </View>
           </View>
         <View style={styles.search_container}>
@@ -116,5 +116,5 @@ const styles ={
 
 
 
- 
+
 

@@ -21,7 +21,7 @@ const Favourites = () => {
       <ScrollView style={{flex:1,}} pagingEnabled={true}>
         <Header title= "Favourites"/>
         {favourites.map((item) => 
-        <BookView book={item} 
+        <BookView filteredBook={item} 
         key={Math.random(10)} 
         text='Remove Favourites'
         addFavourites={(removeFavourites)}/>)}

@@ -34,26 +34,23 @@ function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator 
-      screenOptions={
-        ({ route }) => ({
-        tabBarActiveBackgroundColor:'#dcdcdc',
-        tabBarInactiveBackgroundColor: '#778899',
-        tabBarShowLabel: false,
-        tabBarIcon: ({ color, size }) => {
-          if (route.name === 'Home') {
-            iconName= "home-outline";
-          }
-          if (route.name === 'Favourites') {
-            iconName= "heart-outline";}
-          if (route.name === 'Basket') {
-            iconName= "cart-outline";}
-            return <Icon name={iconName} size={size} color={"black"}  />;},
-          })}>
+      <Tab.Navigator screenOptions={({ route }) => ({
+                                  tabBarActiveBackgroundColor:'#dcdcdc',
+                                  tabBarInactiveBackgroundColor: '#778899',
+                                  tabBarShowLabel: false,
+                                  tabBarIcon: ({ color, size }) => {
+                                    if (route.name === 'Home') {
+                                      iconName= "home-outline";
+                                    }
+                                    if (route.name === 'Favourites') {
+                                      iconName= "heart-outline";}
+                                    if (route.name === 'Basket') {
+                                      iconName= "cart-outline";}
+                                      return <Icon name={iconName} size={size} color={"black"}  />;},
+                                    })}>
       <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
       <Tab.Screen name="Favourites" component={Favourites} options={{ headerShown: false }} />
       <Tab.Screen name="Basket" component={Basket} options={{ headerShown: false, tabBarBadge: quantities }} />
-      
       </Tab.Navigator>
     </NavigationContainer>
   );

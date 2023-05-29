@@ -1,10 +1,12 @@
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity, Text, ActivityIndicator} from 'react-native';
 
-const Button = ({text}) => {
+const Button = ({text, onPress, loading}) => {
     return(
-        <TouchableOpacity style={styles.container}>
-            <Text style={styles.title}> {text} </Text>
+        <TouchableOpacity style={styles.container} onPress= {onPress} disabled= {loading}> 
+            {loading?
+            <ActivityIndicator/>:
+            <Text style={styles.title}> {text} </Text>}
         </TouchableOpacity>
     )
 }
@@ -19,5 +21,5 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         },
-        title:{fontWeight: 'bold', fontSize:17}
+        title:{fontWeight: 'bold', fontSize:17, color:'black'}
 }

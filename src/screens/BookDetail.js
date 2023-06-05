@@ -1,9 +1,7 @@
 import React, {useState} from "react";
-import { Text,SafeAreaView, View, Image, TouchableOpacity, Dimensions } from "react-native";
+import { Text,SafeAreaView, View, Image, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import Header from "../components/Header";
-
 import Icon from 'react-native-vector-icons/Ionicons';
-
 
 
 const BookDetail = ({navigation, route}) => {
@@ -23,7 +21,7 @@ const BookDetail = ({navigation, route}) => {
   return(
     <SafeAreaView>
           <Header title= "Detail" />
-          <View>
+          <ScrollView>
        
             <View style={styles.container}>
               <Text style={styles.maintitle}>{item.title}</Text>
@@ -51,7 +49,7 @@ const BookDetail = ({navigation, route}) => {
               </View>
             </View>
           
-        </View>
+        </ScrollView>
     </SafeAreaView>
     )
 }

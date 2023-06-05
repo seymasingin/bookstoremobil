@@ -6,7 +6,7 @@ import { remove} from '../features/favSlice';
 import Header from '../components/Header';
 
 
-const Favourites = () => {
+const Favourites = ({navigation}) => {
 
   const {favourites} = useSelector((store) => store.favs);
 
@@ -24,7 +24,8 @@ const Favourites = () => {
         <BookView filteredBook={item} 
         key={Math.random(10)} 
         text='Remove Favourites'
-        addFavourites={(removeFavourites)}/>)}
+        addFavourites={(removeFavourites)}
+        onPress={()=>navigation.navigate('BookDetail', {item:item})}/>)}
       </ScrollView>
   )
 }

@@ -1,65 +1,56 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { Text,SafeAreaView, View, Image, TouchableOpacity, Dimensions } from "react-native";
 import Header from "../components/Header";
-import axios from "axios";
+
 import Icon from 'react-native-vector-icons/Ionicons';
-import {increase, decrease} from '../features/quantitySlice';
-import { useDispatch, useSelector } from "react-redux";
 
-const BookDetail = (props) => {
 
-  const key= 'https://api.itbook.store/1.0/books';
- 
-  const id = props.route.params.x;
 
-  const [selectedBook, setSelectedBook] = useState();
+const BookDetail = ({navigation, route}) => {
 
-  const dispatch = useDispatch();
+  const {item} = route.params;
 
-  const {quantity} = useSelector((store) => store.quans);
+  const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    axios.get(`${key}/${id}`)
-    .then((response) => {
-      setSelectedBook(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }, []);
+  const increase = () => {setQuantity(quantity+1)}
 
+  const decrease = () => {setQuantity(quantity-1)}
+
+  
+
+  const handlePress = () => {navigation.navigate('Basket', {item, quantity})}
 
   return(
     <SafeAreaView>
           <Header title= "Detail" />
           <View>
-        {selectedBook && (
+       
             <View style={styles.container}>
-              <Text style={styles.maintitle}>{selectedBook.title}</Text>
-              <Image style={styles.image} source={{ uri: selectedBook.image }} />
-              <Text style={styles.title}>{selectedBook.title}</Text>
-              <Text style={styles.subtitle}>{selectedBook.subtitle}</Text>
+              <Text style={styles.maintitle}>{item.title}</Text>
+              <Image style={styles.image} source={{ uri: item.image }} />
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.subtitle}>{item.subtitle}</Text>
               <View style={styles.bottom_container}>
                 <View style={styles.numbers}>
                   <View style={styles.counter}>
                     <Text style={styles.count}>{quantity}</Text>
                       <View style={styles.arrows}>
-                      <TouchableOpacity onPress={() => dispatch(increase(id))}>
+                      <TouchableOpacity onPress={increase}>
                         <Icon name="chevron-up-outline" size={25} />
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => dispatch(decrease(id))}>
+                      <TouchableOpacity onPress={decrease}>
                         <Icon name="chevron-down-outline" size={25} />
                       </TouchableOpacity>
                       </View>
                   </View>
-                <Text style={styles.price}>{selectedBook.price}</Text>
+                <Text style={styles.price}>{item.price}</Text>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('Basket')} >
-                  <Text style={styles.buy}> BUY </Text>
+                <TouchableOpacity style={styles.button} onPress={handlePress} >
+                  <Text style={styles.buy}> ADD BASKET </Text>
                 </TouchableOpacity>
               </View>
             </View>
-          )}
+          
         </View>
     </SafeAreaView>
     )

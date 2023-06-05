@@ -30,7 +30,7 @@ const HomeStack = () => {
 
 function App() {
 
-  const {quantities} = useSelector(s => s.quans);
+
 
   return (
     <NavigationContainer>
@@ -50,7 +50,7 @@ function App() {
                                     })}>
       <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
       <Tab.Screen name="Favourites" component={Favourites} options={{ headerShown: false }} />
-      <Tab.Screen name="Basket" component={Basket} options={{ headerShown: false, tabBarBadge: quantities }} />
+      <Tab.Screen name="Basket" component={Basket} options={{ headerShown: false}} />
       </Tab.Navigator>
     </NavigationContainer>
   );

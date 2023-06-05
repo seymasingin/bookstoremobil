@@ -25,12 +25,9 @@ const Home = ({navigation}) => {
       });
   }, []);
   
-
   const dispatch = useDispatch();
   const {favourites} = useSelector((store) => store.favs);
   
-  
-
   const addFavourites = (id) => {
     const allReady = favourites?.find(item => item.isbn13 === id)
     if(allReady){
@@ -59,9 +56,9 @@ const Home = ({navigation}) => {
         }
       };
 
-  const handleProductSelect= (isbn13) => {
-    navigation.navigate('BookDetail', {x:isbn13} )
-  }
+  /*const handleProductSelect= (isbn13) => {
+    navigation.navigate('BookDetail', {id:isbn13} )
+  }*/
  
   return (
     <SafeAreaView>
@@ -89,7 +86,7 @@ const Home = ({navigation}) => {
                     key={Math.random(10)}
                     addFavourites={addFavourites}
                     text='Add Favourites'
-                    onPress= {()=>handleProductSelect(item.isbn13) }
+                    onPress= {()=>navigation.navigate('BookDetail', {item:item}) }
                       />)
                     }
         </ScrollView>

@@ -22,3 +22,7 @@ Finally, run the app
 
 # <sub>**Author**</sub>
 Şeyma Singin
+
+# <sub>**Screenshots**</sub>
+
+![screenshot](https://github.com/seymasingin/bookstoremobil/assets/113527683/3c8d3e0f-39e3-4673-bf9a-260df024a83f)
